@@ -1,0 +1,94 @@
+h1 {
+  color: #fff;
+}
+
+.todo {
+  border: 2px solid #ffffff;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem 10px;
+  border-radius: 10px;
+
+  &:hover {
+    // transform: scale(1.01);
+    box-shadow: -1px -1px 17px 7px rgba(228, 235, 240, 0.2);
+    transition: all 0.2s ease-in-out;
+    color: #ae2f3c !important;
+  }
+  .number {
+    font-size: 1.4rem;
+    border: 2px solid #ffffff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: all 0.2s ease-in-out;
+  }
+}
+.todo_l {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 14px;
+  width: 100%;
+  // border: 2px solid red;
+
+  .todo_date {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1.3rem;
+    color: transparent !important;
+  }
+
+  .todo_header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+
+    .checkbox{
+      accent-color: red;
+      width: 1.5rem;
+      height: 1.5rem;
+      border-radius: 50%;
+    }
+
+    input[type="text"] {
+      height: 1.4rem;
+      width: 100%;
+      padding: 1.1rem 0;
+      font-size: 1.4rem;
+      border: transparent;
+    }
+  }
+}
+// .checkbox:checked ~ .todo_input {
+//   text-decoration: line-through;
+//   text-decoration-thickness: 3px;
+//   text-decoration-color: #ae2f3c;
+// }
+.clear:hover {
+  color: #fff;
+  background: #0e73f6;
+  transition: all 0.2s ease-in-out;
+}
+.edit,
+.delete,
+.save,
+.cancel {
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  border: 2px solid transparent;
+  padding: 3px 6px;
+  border-radius: 0.5rem;
+}
+
+.edit:hover,
+.delete:hover,
+.save:hover,
+.cancel:hover {
+  box-shadow: 0px 0px 16px -1px rgba(244, 245, 246, 0.2);
+}

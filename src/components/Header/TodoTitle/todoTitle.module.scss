@@ -1,0 +1,71 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 40px;
+  padding: 1rem;
+
+  .textLine {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    .title {
+      font-family: "Racing Sans One" sans-serif;
+      font-weight: 400;
+      font-size: 64px;
+      line-height: 81px;
+     
+    }
+
+    span {
+      width: 50px;
+      height: 0px;
+      border: 1px solid #ffffff;
+    }
+  }
+
+  .buttonLine{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+
+    .title_2{
+        font-size: 30px;
+        color: #fff;
+    }
+    span {
+      width: 240px;
+      height: 0px;
+      border: 1px solid #ffffff;
+    }
+  }
+}
+
+@media (max-width: 590px){
+    .wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 1px;
+    }
+    .title{
+        font-size: 50px !important;
+    }
+    .title_2{
+        font-size: 20px!important;
+    }
+}
+
+@media (max-width:414px) {
+    .title{
+        font-size: 20px !important;
+    }
+    .title_2{
+        font-size: 20px!important;
+    }
+}

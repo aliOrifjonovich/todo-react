@@ -1,0 +1,41 @@
+.pagination_wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  .numberInput {
+    width: 5rem;
+    padding: 5px 10px;
+    font-size: 1.4rem;
+    border: 2px solid #fff;
+    border-radius: 5px;
+  }
+
+  .pages {
+    padding: 5px 10px;
+    font-size: 1.4rem;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    color: #fff;
+    background: transparent;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      border: 2px solid #fff;
+    }
+  }
+  .active {
+    border: 2px solid #fff;
+  }
+  .next,
+  .prev {
+    border: 2px solid #fff;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 10px;
+  }
+}
