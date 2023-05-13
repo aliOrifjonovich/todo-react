@@ -2,8 +2,11 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  background: #2b2a2a;
-  color: #fff;
+}
+
+body{
+  background-color: #010425;
+  height: 100vh;
 }
 /*bloklarning width ni o`zgarishini verstka uchun qulay qilib beradi*/
 *,
@@ -92,3 +95,6 @@ h6 {
   font-weight: 400;
 }
 
+.header {
+  margin-bottom: 2rem;
+}

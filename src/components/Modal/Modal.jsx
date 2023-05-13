@@ -13,7 +13,7 @@ const Modal = ({ setTodos, todos, item, setDeletedId }) => {
   return (
     <div className={cls.modal}>
       <div className={cls.wrapper}>
-        <h1>Are sure to delete this "{item.value}" list</h1>
+        <h1>Are sure to delete this <br/>"{item.value}" <br/> list</h1>
         <div className={cls.buttons}>
           <button onClick={deleteItem} className={cls.yes}>yes</button>
           <button onClick={cancelItem}className={cls.no}>no</button>

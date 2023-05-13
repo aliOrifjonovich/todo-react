@@ -1,18 +1,39 @@
-import React from 'react';
-import cls from './weather.module.scss'
-import { LocationIcon } from '../../icons';
+import React, { useEffect, useState } from "react";
+import cls from "./weather.module.scss";
 
 const Weather = () => {
-    return (
-        <div className={cls.wrapper}>
-            <h1>26&deg;C</h1>
-            <h2>1st May 23</h2>
-            <div className={cls.location}>
-                <LocationIcon/>
-                <p>San Francisco, CA</p>
-            </div>
-        </div>
-    );
-}
+  const [fetchingData, setFetchingData] = useState([]);
+  const date = new Date();
+  const hour = date.getHours() + ':' + date.getMinutes();
+  const day = date.getDate();
+  const month = date.toLocaleString("default", { month: "long" });
+  console.log(day);
+  const year = date.getFullYear();
+  const dateMonth = day + " " + month + " " + year;
+
+  useEffect(() => {
+    fetch(
+      "https://www.meteosource.com/api/v1/free/point?key=ytxekr9dsf51mmp75qu6z1wp662t76b0y17xbv6t&place_id=tashkent"
+    )
+      .then((response) => response.json())
+      .then((data) => setFetchingData(data.current))
+      .catch((err) => console.log(err));
+  }, []);
+
+  return (
+    <div className={cls.wrapper}>
+      <h1 className={cls.weather_Hour}>
+        {fetchingData.temperature}&deg;C 
+        <h1>|</h1>
+        <span>{hour}</span>
+      </h1>
+      <h2>{dateMonth}</h2>
+      <div className={cls.location}>
+        <box-icon color="#000" name="location-plus"></box-icon>
+        <p>Tashkent, Uz</p>
+      </div>
+    </div>
+  );
+};
 
 export default Weather;

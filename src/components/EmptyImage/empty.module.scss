@@ -5,3 +5,9 @@
 	margin: 1rem auto;
 	width: 400px;
 }
+
+@media (max-width: 414px) {
+	.nothing_image{
+        width: 300px;
+    }
+}

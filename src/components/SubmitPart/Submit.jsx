@@ -8,15 +8,21 @@ import cls from "./submit.module.scss";
 import TodoList from "../TodoList/TodoList";
 import EmptyImage from "../EmptyImage/EmptyImage";
 import PaginationItem from "../Pagination/PaginationItem";
+import Warning from "../Warning/Warning";
 
 const Submit = () => {
   const [todos, setTodos] = useState([]);
   const [status, setStatus] = useState("all");
+  const [warning, setWarning] = useState(false);
+
+  // For Pagination items
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(3);
+  const lastPostIndex = currentPage * postsPerPage;
+  const firstPostIndex = lastPostIndex - postsPerPage;
   console.log(todos);
 
-
+  // Filter functions
   const selectFilter = (todos, status) => {
     switch (status) {
       case "completed":
@@ -31,23 +37,24 @@ const Submit = () => {
   const handClick = (event) => {
     event.preventDefault();
     const Inputvalue = event.target["list"].value;
-    const newTodo = {
-      value: Inputvalue,
-      isDone: false,
-      id: "a" + Date.now(),
-      date: new Date().toLocaleDateString(),
-      time: new Date().toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit",
-      }),
-    };
-    setTodos([newTodo, ...todos]);
-    event.target.reset();
-  };
+    if (!Inputvalue == "" && !todos.find((todo) => todo?.value === Inputvalue)?.value) {
 
-  const lastPostIndex = currentPage * postsPerPage;
-  const firstPostIndex = lastPostIndex - postsPerPage;
-  // console.log("currentTodos", currentTodos);
+      const newTodo = {
+        value: Inputvalue,
+        isDone: false,
+        id: "a" + Date.now(),
+        date: new Date().toLocaleDateString(),
+        time: new Date().toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
+      };
+      setTodos([newTodo, ...todos]);
+      event.target.reset();
+    }else{
+     setWarning(true);
+    }
+  };
 
   const TodosElem = selectFilter(todos, status)
     .slice(firstPostIndex, lastPostIndex)
@@ -56,6 +63,7 @@ const Submit = () => {
         key={item.id}
         item={item}
         index={i}
+        id={item.id}
         setTodos={setTodos}
         todos={todos}
       />
@@ -65,7 +73,7 @@ const Submit = () => {
 
   return (
     <Container fixed sx={{ padding: "5px" }}>
-      <div id="block">
+      <div className={cls.block}>
         <form
           form
           className={cls.form}
@@ -74,9 +82,6 @@ const Submit = () => {
             InputRef.current.focus();
           }}
         >
-          {todos.length == 0 ? (
-            <span className={cls.error}>Please write something here!</span>
-          ) : null}
           <input
             placeholder="Add your own lists"
             className={cls.input}
@@ -92,44 +97,23 @@ const Submit = () => {
         <span className={cls.line}></span>
 
         <div className={cls.container}>
+          <div className={cls.filter_wrapper}>
+            <h2 className={cls.title}>Filter by status:</h2>
 
-          <Grid
-            container
-            spacing={2}
-            sx={{
-              border: "2px solid #fff",
-              marginTop: "2px",
-              borderRadius: "2rem",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              padding: " .5rem 1.5rem",
-            }}
-          >
-            <Grid
-              item
-              xs={12}
-              md={6}
-              sx={{ padding: "0 !important", fontSize: "1rem" }}
+            <select
+              name="filter"
+              id="filter"
+              className={cls.selection}
+              onChange={(event) => {
+                setStatus(event.target.value);
+                console.log(event.target.value);
+              }}
             >
-              <h2 className={cls.title}>Filter by status:</h2>
-            </Grid>
-            <Grid item xs={12} md={6} sx={{ padding: "0 !important" }}>
-              <select
-                name="filter"
-                id="filter"
-                className={cls.selection}
-                onChange={(event) => {
-                  setStatus(event.target.value);
-                  console.log(event.target.value);
-                }}
-              >
-                <option value="all">All</option>
-                <option value="completed">Completed</option>
-                <option value="proccess">Proccess</option>
-              </select>
-            </Grid>
-          </Grid>
+              <option value="all">All</option>
+              <option value="completed">Completed</option>
+              <option value="proccess">Proccess</option>
+            </select>
+          </div>
 
           <ul className={cls.todos_list}>
             {todos.length == 0 ? <EmptyImage /> : TodosElem}
@@ -146,9 +130,10 @@ const Submit = () => {
           <div className={cls.clear} onClick={() => setTodos([])}>
             Clear all
           </div>
-
         </div>
+
       </div>
+        {warning ? <Warning setWarning={setWarning}/> : null}
     </Container>
   );
 };
