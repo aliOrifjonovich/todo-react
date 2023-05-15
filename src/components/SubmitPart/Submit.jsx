@@ -66,6 +66,7 @@ const Submit = () => {
         id={item.id}
         setTodos={setTodos}
         todos={todos}
+        firstPostIndex={firstPostIndex}
       />
     ));
 

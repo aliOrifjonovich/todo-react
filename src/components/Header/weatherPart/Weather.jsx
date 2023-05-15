@@ -7,7 +7,6 @@ const Weather = () => {
   const hour = date.getHours() + ':' + date.getMinutes();
   const day = date.getDate();
   const month = date.toLocaleString("default", { month: "long" });
-  console.log(day);
   const year = date.getFullYear();
   const dateMonth = day + " " + month + " " + year;
 

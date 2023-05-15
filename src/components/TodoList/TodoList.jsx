@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import cls from "./todolist.module.scss";
 import Modal from "../Modal/Modal";
 
-const TodoList = ({ item, index, setTodos, todos }) => {
+const TodoList = ({ item, index, setTodos, todos, firstPostIndex,  }) => {
   const InputElem = useRef();
   const [disabled, setDisabled] = useState(false);
   const [deletedId, setDeletedId] = useState(false);
@@ -44,7 +44,7 @@ const TodoList = ({ item, index, setTodos, todos }) => {
   return (
     <>
       <li className={cls.todo} draggable id={item.id}>
-        <span className={cls.number}>{index + 1}</span>
+        <span className={cls.number}>{firstPostIndex + (++index)}</span>
         <div className={cls.todo_l}>
           <div className={cls.todo_date}>
             <span className="date">{item.date}</span>

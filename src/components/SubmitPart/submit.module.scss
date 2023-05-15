@@ -110,3 +110,29 @@
     width: 100%;
   }
 }
+
+@media (max-width: 281px) {
+  .form{
+    width: 100%;
+  }
+
+  
+  .selection {
+    margin: px 0;
+    width: 100%;
+  }
+  .filter_wrapper{
+    padding: 5px;
+    gap: 2px;
+  }
+  .add {
+    width: 5rem !important;
+    height: 100%;
+    border-radius: 1rem;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #fff;
+    background-color: #302f2f;
+  }
+}
