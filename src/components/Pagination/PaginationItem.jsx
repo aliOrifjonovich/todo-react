@@ -1,17 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import cls from "./pagination.module.scss";
+import { Context } from "../SubmitPart/Submit";
 
-const PaginationItem = ({
-  totalPosts,
-  postsPerPage,
-  setCurrentPage,
-  setPostsPerPage,
-  currentPage,
-}) => {
-
+const PaginationItem = () => {
+  const { todos, postsPerPage, setCurrentPage, setPostsPerPage, currentPage } =
+    useContext(Context);
   // Pages
   const pages = [];
-  for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
+  for (let i = 1; i <= Math.ceil(todos.length / postsPerPage); i++) {
     pages.push(i);
   }
   const handleNextClick = () => {
@@ -24,13 +20,14 @@ const PaginationItem = ({
       setCurrentPage((old) => old - 1);
     }
   };
+  
   // Return
   return (
     <div className={cls.pagination_wrapper}>
       <button
         className={cls.prev}
         onClick={handlePreviousClick}
-        disabled={currentPage === 1}  
+        disabled={currentPage === 1}
       >
         <box-icon color="#fff" rotate="180" name="last-page"></box-icon>
       </button>

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { createContext, useRef, useState } from "react";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import "boxicons";
@@ -9,6 +9,7 @@ import TodoList from "../TodoList/TodoList";
 import EmptyImage from "../EmptyImage/EmptyImage";
 import PaginationItem from "../Pagination/PaginationItem";
 import Warning from "../Warning/Warning";
+export const Context = createContext();
 
 const Submit = () => {
   const [todos, setTodos] = useState([]);
@@ -37,8 +38,10 @@ const Submit = () => {
   const handClick = (event) => {
     event.preventDefault();
     const Inputvalue = event.target["list"].value;
-    if (!Inputvalue == "" && !todos.find((todo) => todo?.value === Inputvalue)?.value) {
-
+    if (
+      !Inputvalue == "" &&
+      !todos.find((todo) => todo?.value === Inputvalue)?.value
+    ) {
       const newTodo = {
         value: Inputvalue,
         isDone: false,
@@ -51,8 +54,8 @@ const Submit = () => {
       };
       setTodos([newTodo, ...todos]);
       event.target.reset();
-    }else{
-     setWarning(true);
+    } else {
+      setWarning(true);
     }
   };
 
@@ -73,69 +76,82 @@ const Submit = () => {
   const InputRef = useRef();
 
   return (
-    <Container fixed sx={{ padding: "5px" }}>
-      <div className={cls.block}>
-        <form
-          form
-          className={cls.form}
-          onSubmit={(event) => handClick(event)}
-          onClick={() => {
-            InputRef.current.focus();
-          }}
-        >
-          <input
-            placeholder="Add your own lists"
-            className={cls.input}
-            type="text"
-            name="list"
-            ref={InputRef}
-          />
-          <button type="submit" className={cls.add}>
-            Add
-          </button>
-        </form>
+    <Context.Provider
+      value={{
+        todos,
+        setTodos,
+        status,
+        setStatus,
+        warning,
+        setWarning,
+        currentPage,
+        setCurrentPage,
+        postsPerPage,
+        setPostsPerPage,
+        lastPostIndex,
+        firstPostIndex,
+        handClick,
+        TodosElem,
+        InputRef,
+      }}
+    >
+      <Container fixed sx={{ padding: "5px" }}>
+        <div className={cls.block}>
+          <form
+            form
+            className={cls.form}
+            onSubmit={(event) => handClick(event)}
+            onClick={() => {
+              InputRef.current.focus();
+            }}
+          >
+            <input
+              placeholder="Add your own lists"
+              className={cls.input}
+              type="text"
+              name="list"
+              ref={InputRef}
+            />
+            <button type="submit" className={cls.add}>
+              Add
+            </button>
+          </form>
 
-        <span className={cls.line}></span>
+          <span className={cls.line}></span>
 
-        <div className={cls.container}>
-          <div className={cls.filter_wrapper}>
-            <h2 className={cls.title}>Filter by status:</h2>
+          <div className={cls.container}>
+            <div className={cls.filter_wrapper}>
+              <h2 className={cls.title}>Filter by status:</h2>
 
-            <select
-              name="filter"
-              id="filter"
-              className={cls.selection}
-              onChange={(event) => {
-                setStatus(event.target.value);
-                console.log(event.target.value);
-              }}
-            >
-              <option value="all">All</option>
-              <option value="completed">Completed</option>
-              <option value="proccess">Proccess</option>
-            </select>
-          </div>
+              <select
+                name="filter"
+                id="filter"
+                className={cls.selection}
+                onChange={(event) => {
+                  setStatus(event.target.value);
+                  console.log(event.target.value);
+                }}
+              >
+                <option value="all">All</option>
+                <option value="completed">Completed</option>
+                <option value="proccess">Proccess</option>
+              </select>
+            </div>
 
-          <ul className={cls.todos_list}>
-            {todos.length == 0 ? <EmptyImage /> : TodosElem}
-          </ul>
+            <ul className={cls.todos_list}>
+              {todos.length == 0 ? <EmptyImage /> : TodosElem}
+            </ul>
 
-          <PaginationItem
-            totalPosts={todos.length}
-            postsPerPage={postsPerPage}
-            setCurrentPage={setCurrentPage}
-            setPostsPerPage={setPostsPerPage}
-            currentPage={currentPage}
-          />
+            <PaginationItem/>
 
-          <div className={cls.clear} onClick={() => setTodos([])}>
-            Clear all
+            <div className={cls.clear} onClick={() => setTodos([])}>
+              Clear all
+            </div>
           </div>
         </div>
-
-      </div>
-        {warning ? <Warning setWarning={setWarning}/> : null}
-    </Container>
+        {warning ? <Warning setWarning={setWarning} /> : null}
+      </Container>
+    </Context.Provider>
   );
 };
 

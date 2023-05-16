@@ -1,8 +1,9 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import cls from "./todolist.module.scss";
 import Modal from "../Modal/Modal";
+import { Context } from "../SubmitPart/Submit";
 
-const TodoList = ({ item, index, setTodos, todos, firstPostIndex,  }) => {
+const TodoList = ({item, index, setTodos, todos, firstPostIndex}) => {
   const InputElem = useRef();
   const [disabled, setDisabled] = useState(false);
   const [deletedId, setDeletedId] = useState(false);
