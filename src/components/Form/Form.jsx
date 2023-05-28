@@ -1,7 +1,7 @@
 import React, { useContext, useRef } from "react";
 import cls from "../SubmitPart/submit.module.scss";
 import { Context } from "../SubmitPart/Submit";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AddAction, SetTodosAction } from "../../Redux/todoReducer";
 import axios from "axios";
 import { todoServers } from "../../API/todoApi";
@@ -9,6 +9,7 @@ import { todoServers } from "../../API/todoApi";
 const Form = () => {
   const { todos, setWarning } = useContext(Context);
   const dispatch = useDispatch();
+  const todoList = useSelector((list)=>console.log(list))
 
   const handClick = (event) => {
     event.preventDefault();
@@ -27,8 +28,7 @@ const Form = () => {
           minute: "2-digit",
         }),
       };
-      // setTodos([newTodo, ...todos]);
-      // dispatch(AddAction(newTodo));
+
       todoServers.post(newTodo).then((response) => {
         todoServers
           .get()
@@ -57,16 +57,16 @@ const Form = () => {
         placeholder="Add your own lists"
         className={cls.input}
         type="text"
-        name="list"
+        name="list"               
         ref={InputRef}
       />
       <div className={cls.buttons}>
         <button type="submit" className={cls.add}>
           Add
         </button>
-        <button type="search" className={cls.search}>
+        <div className={cls.search}>
           <box-icon size="sm" color="#fff" name="search-alt-2"></box-icon>
-        </button>
+        </div>
       </div>
     </form>
   );
