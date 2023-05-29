@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef, useState } from "react";
 import cls from "../SubmitPart/submit.module.scss";
 import { Context } from "../SubmitPart/Submit";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,9 +7,11 @@ import axios from "axios";
 import { todoServers } from "../../API/todoApi";
 
 const Form = () => {
-  const { todos, setWarning } = useContext(Context);
+  const { todos, setWarning, setInputValue } = useContext(Context);
   const dispatch = useDispatch();
   const todoList = useSelector((list)=>console.log(list))
+  const [retakeValue, setRetakeValue] = useState('')
+  
 
   const handClick = (event) => {
     event.preventDefault();
@@ -43,6 +45,10 @@ const Form = () => {
     }
   };
 
+  const handleSearch = ()=>{
+    setInputValue(retakeValue);
+  }
+
   const InputRef = useRef();
   return (
     <form
@@ -59,12 +65,13 @@ const Form = () => {
         type="text"
         name="list"               
         ref={InputRef}
+        onChange={(e)=>setRetakeValue(e.target.value)}
       />
       <div className={cls.buttons}>
         <button type="submit" className={cls.add}>
           Add
         </button>
-        <div className={cls.search}>
+        <div className={cls.search} onClick={handleSearch}>
           <box-icon size="sm" color="#fff" name="search-alt-2"></box-icon>
         </div>
       </div>

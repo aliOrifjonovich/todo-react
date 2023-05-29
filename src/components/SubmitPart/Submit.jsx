@@ -25,6 +25,8 @@ const Submit = () => {
   const firstPostIndex = lastPostIndex - postsPerPage;
   const todos = useSelector((state) => state.todos);
   const dispatch = useDispatch();
+  const [inputValue, setInputValue] = useState("")
+  console.log("inputValue", inputValue);
 
   // const queryClients = useQueryClient();
 
@@ -41,10 +43,11 @@ const Submit = () => {
   };
   useEffect(() => {
 
-    todoServers.get()
+    todoServers.get(inputValue )
       .then((response) => dispatch(SetTodosAction(response.data?.reverse())))
       .catch((error) => console.log(error));
-  }, []);
+  }, [inputValue]);
+
   return (
     <Context.Provider
       value={{
@@ -61,6 +64,7 @@ const Submit = () => {
         lastPostIndex,
         firstPostIndex,
         selectFilter,
+        setInputValue,
       }}
     >
       <Container fixed sx={{ padding: "5px" }}>
